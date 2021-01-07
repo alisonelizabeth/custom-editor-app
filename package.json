@@ -1,0 +1,32 @@
+{
+  "name": "custom-editor-app",
+  "version": "1.0.0",
+  "description": "Example app using ANTLR and monaco",
+  "scripts": {
+    "start": "webpack serve --hot --open"
+  },
+  "author": "Alison Goryachev",
+  "license": "ISC",
+  "dependencies": {
+    "@types/react-router-dom": "^5.1.7",
+    "antlr4ts": "^0.5.0-alpha.4",
+    "file-loader": "^6.2.0",
+    "monaco-editor-webpack-plugin": "^2.1.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-monaco-editor": "^0.41.2"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "antlr4ts-cli": "^0.5.0-alpha.3",
+    "css-loader": "^5.0.1",
+    "html-webpack-plugin": "^4.5.1",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.1",
+    "webpack-dev-server": "^3.11.1"
+  }
+}
