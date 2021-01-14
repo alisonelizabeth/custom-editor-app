@@ -16,19 +16,18 @@ export const Editor: FunctionComponent<Props> = ({
   };
 
   const editorDidMount = (editor: any) => {
-    console.log('editorDidMount', editor);
     editor.focus();
   }
 
   const onChange = (newValue: any, e: any) => {
-    console.log('onChange', newValue, e);
+    // console.log('onChange', newValue, e);
   }
 
   return (
     <MonacoEditor
       width="800"
       height="600"
-      language="javascript"
+      language={languageId}
       theme="vs-dark"
       value={code}
       options={options}

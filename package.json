@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Example app using ANTLR and monaco",
   "scripts": {
-    "start": "webpack serve --hot --open"
+    "start": "webpack serve --hot --open",
+    "build": "webpack"
   },
   "author": "Alison Goryachev",
   "license": "ISC",

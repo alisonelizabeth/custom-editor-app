@@ -1,5 +1,5 @@
 const path = require('path');
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const APP_DIR = path.resolve(__dirname, './src');
 const MONACO_DIR = path.resolve(__dirname, './node_modules/monaco-editor');
@@ -8,24 +8,16 @@ module.exports = {
   mode: 'development',
   entry: {
     app: './src/index.tsx',
-    // "editor.worker": 'monaco-editor-core/esm/vs/editor/editor.worker.js',
-    // "todoLangWorker": './src/todo-lang/todolang.worker.ts'
+    "editor.worker": 'monaco-editor/esm/vs/editor/editor.worker.js',
+    "todo.worker": './src/language/todo.worker.ts'
   },
   output: {
     globalObject: 'self',
-    filename: (chunkData) => {
-      switch (chunkData.chunk.name) {
-        case 'editor.worker':
-          return 'editor.worker.js';
-        case 'todoLangWorker':
-          return "todoLangWorker.js"
-        default:
-          return 'bundle.[hash].js';
-      }
-    },
+    filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   resolve: {
+    modules: ['node_modules'],
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css']
   },
   module: {
@@ -55,12 +47,12 @@ module.exports = {
       {
         test: /\.ttf$/,
         use: ['file-loader']
-      }
+      },
     ]
   },
   plugins: [
-    new htmlWebpackPlugin({
+    new HtmlWebpackPlugin({
       template: './src/index.html'
-    })
+    }),
   ]
 }
