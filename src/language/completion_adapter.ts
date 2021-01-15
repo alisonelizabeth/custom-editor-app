@@ -31,6 +31,9 @@ export class TodoCompletionAdapter implements monaco.languages.CompletionItemPro
       currentLineChars
     );
 
+    console.log(' autocomplete', autocompleteInfo)
+
+
     // const wordInfo = model.getWordUntilPosition(position);
     // const wordRange = {
     //   startLineNumber: position.lineNumber,

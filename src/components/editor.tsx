@@ -1,7 +1,6 @@
 import React, { useState, FunctionComponent } from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
-
 interface Props {
   languageId: string
 }
@@ -9,7 +8,7 @@ interface Props {
 export const Editor: FunctionComponent<Props> = ({
   languageId
 }) => {
-  const [code, setCode] = useState<string>('// type your code...');
+  const [code, setCode] = useState<string>('');
 
   const options = {
     selectOnLineNumbers: true

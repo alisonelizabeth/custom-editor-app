@@ -4,7 +4,8 @@ import { LANGUAGE_ID } from './constants';
 import { TodoWorker } from './todo_worker';
 import { WorkerProxyService} from './worker_proxy';
 import { TodoCompletionAdapter} from './completion_adapter';
-
+import { TodoDiagnosticsAdapter } from './diagnostics_adapter';
+import { monarchLanguage, languageConfiguration } from './lexer_rules';
 
 export type WorkerAccessor = (...uris: monaco.Uri[]) => Promise<TodoWorker>;
 export const setupLanguage = () => {
@@ -29,12 +30,13 @@ export const setupLanguage = () => {
       return workerProxyService.getWorker(uris);
     };
 
-    // monaco.languages.setMonarchTokensProvider(LANGUAGE_ID, lexerRules);
-    // monaco.languages.setLanguageConfiguration(LANGUAGE_ID, languageConfiguration);
+    monaco.languages.setMonarchTokensProvider(LANGUAGE_ID, monarchLanguage);
+    // TODO fix config
+    monaco.languages.setLanguageConfiguration(LANGUAGE_ID, languageConfiguration);
 
     monaco.languages.registerCompletionItemProvider(LANGUAGE_ID, new TodoCompletionAdapter(worker));
 
-    // new DiagnosticsAdapter(worker);
+    new TodoDiagnosticsAdapter(worker);
   });
 
 }

@@ -1,4 +1,4 @@
-parser grammar todoParser;
+parser grammar TodoParser;
 
 todoExpressions : (addExpression)* (completeExpression)*;
 

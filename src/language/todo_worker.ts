@@ -1,4 +1,5 @@
 import * as monaco from "monaco-editor";
+import { parseAndGetSyntaxErrors } from './parser';
 
 export class TodoWorker {
   private _ctx: monaco.worker.IWorkerContext;
@@ -13,6 +14,13 @@ export class TodoWorker {
     return model?.getValue();
   }
 
+  public async getSyntaxErrors(modelUri: string) {
+    const code = this.getTextDocument(modelUri);
+
+    if (code) {
+      return parseAndGetSyntaxErrors(code);
+    }
+  }
 
   public provideAutocompleteSuggestions(currentLineChars: string) {
     // Array of the active line words
