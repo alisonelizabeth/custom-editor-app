@@ -30,7 +30,7 @@ const parse = (
   };
 };
 
-export const parseAndGetSyntaxErrors = (code: string): TodoError[] => {
+export const getSyntaxErrors = (code: string): TodoError[] => {
   const { errors } = parse(code);
   return errors;
 };

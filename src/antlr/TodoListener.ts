@@ -1,4 +1,6 @@
-// Generated from ./src/antlr/TodoParser.g4 by ANTLR 4.9.0-SNAPSHOT
+// @ts-nocheck
+
+// Generated from ./src/antlr/Todo.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
 import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
@@ -12,7 +14,7 @@ import { CompleteExpressionContext } from "./TodoParser";
  * This interface defines a complete listener for a parse tree produced by
  * `TodoParser`.
  */
-export interface TodoParserListener extends ParseTreeListener {
+export interface TodoListener extends ParseTreeListener {
 	/**
 	 * Enter a parse tree produced by `TodoParser.todoExpressions`.
 	 * @param ctx the parse tree

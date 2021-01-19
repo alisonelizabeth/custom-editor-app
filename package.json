@@ -5,7 +5,7 @@
   "scripts": {
     "start": "webpack-dev-server --hot --open",
     "build": "webpack",
-    "build:antlr": "antlr4ts ./src/antlr/TodoLexer.g4 ./src/antlr/TodoParser.g4"
+    "build:antlr": "antlr4ts ./src/antlr/Todo.g4"
   },
   "author": "Alison Goryachev",
   "license": "ISC",

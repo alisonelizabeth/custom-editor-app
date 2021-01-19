@@ -17,11 +17,6 @@ export class TodoDiagnosticsAdapter {
 
       if (model.getModeId() === LANGUAGE_ID) {
         model.onDidChangeContent(() => {
-          // Do not validate if the language ID has changed
-          if (model.getModeId() !== LANGUAGE_ID) {
-            return;
-          }
-
           // Every time a new change is made, wait 500ms before validating
           clearTimeout(handle);
           handle = setTimeout(() => this.validate(model.uri), 500);

@@ -1,4 +1,5 @@
-// Generated from ./src/antlr/TodoParser.g4 by ANTLR 4.9.0-SNAPSHOT
+// @ts-nocheck
+// Generated from ./src/antlr/Todo.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
 import { ATN } from "antlr4ts/atn/ATN";
@@ -23,14 +24,15 @@ import { VocabularyImpl } from "antlr4ts/VocabularyImpl";
 
 import * as Utils from "antlr4ts/misc/Utils";
 
-import { TodoParserListener } from "./TodoParserListener";
+import { TodoListener } from "./TodoListener";
 
 export class TodoParser extends Parser {
 	public static readonly ADD = 1;
 	public static readonly TODO = 2;
-	public static readonly STRING = 3;
-	public static readonly EOL = 4;
-	public static readonly COMPLETE = 5;
+	public static readonly COMPLETE = 3;
+	public static readonly STRING = 4;
+	public static readonly EOL = 5;
+	public static readonly WS = 6;
 	public static readonly RULE_todoExpressions = 0;
 	public static readonly RULE_addExpression = 1;
 	public static readonly RULE_completeExpression = 2;
@@ -40,9 +42,10 @@ export class TodoParser extends Parser {
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
+		undefined, "'ADD'", "'TODO'", "'COMPLETE'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
-		undefined, "ADD", "TODO", "STRING", "EOL", "COMPLETE",
+		undefined, "ADD", "TODO", "COMPLETE", "STRING", "EOL", "WS",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(TodoParser._LITERAL_NAMES, TodoParser._SYMBOLIC_NAMES, []);
 
@@ -54,7 +57,7 @@ export class TodoParser extends Parser {
 	// tslint:enable:no-trailing-whitespace
 
 	// @Override
-	public get grammarFileName(): string { return "TodoParser.g4"; }
+	public get grammarFileName(): string { return "Todo.g4"; }
 
 	// @Override
 	public get ruleNames(): string[] { return TodoParser.ruleNames; }
@@ -135,8 +138,6 @@ export class TodoParser extends Parser {
 			this.match(TodoParser.TODO);
 			this.state = 20;
 			this.match(TodoParser.STRING);
-			this.state = 21;
-			this.match(TodoParser.EOL);
 			}
 		}
 		catch (re) {
@@ -160,14 +161,12 @@ export class TodoParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 23;
+			this.state = 22;
 			this.match(TodoParser.COMPLETE);
-			this.state = 24;
+			this.state = 23;
 			this.match(TodoParser.TODO);
-			this.state = 25;
+			this.state = 24;
 			this.match(TodoParser.STRING);
-			this.state = 26;
-			this.match(TodoParser.EOL);
 			}
 		}
 		catch (re) {
@@ -186,20 +185,19 @@ export class TodoParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x07\x1F\x04\x02" +
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\b\x1D\x04\x02" +
 		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x03\x02\x07\x02\n\n\x02\f\x02\x0E\x02" +
 		"\r\v\x02\x03\x02\x07\x02\x10\n\x02\f\x02\x0E\x02\x13\v\x02\x03\x03\x03" +
-		"\x03\x03\x03\x03\x03\x03\x03\x03\x04\x03\x04\x03\x04\x03\x04\x03\x04\x03" +
-		"\x04\x02\x02\x02\x05\x02\x02\x04\x02\x06\x02\x02\x02\x02\x1D\x02\v\x03" +
-		"\x02\x02\x02\x04\x14\x03\x02\x02\x02\x06\x19\x03\x02\x02\x02\b\n\x05\x04" +
-		"\x03\x02\t\b\x03\x02\x02\x02\n\r\x03\x02\x02\x02\v\t\x03\x02\x02\x02\v" +
-		"\f\x03\x02\x02\x02\f\x11\x03\x02\x02\x02\r\v\x03\x02\x02\x02\x0E\x10\x05" +
-		"\x06\x04\x02\x0F\x0E\x03\x02\x02\x02\x10\x13\x03\x02\x02\x02\x11\x0F\x03" +
-		"\x02\x02\x02\x11\x12\x03\x02\x02\x02\x12\x03\x03\x02\x02\x02\x13\x11\x03" +
-		"\x02\x02\x02\x14\x15\x07\x03\x02\x02\x15\x16\x07\x04\x02\x02\x16\x17\x07" +
-		"\x05\x02\x02\x17\x18\x07\x06\x02\x02\x18\x05\x03\x02\x02\x02\x19\x1A\x07" +
-		"\x07\x02\x02\x1A\x1B\x07\x04\x02\x02\x1B\x1C\x07\x05\x02\x02\x1C\x1D\x07" +
-		"\x06\x02\x02\x1D\x07\x03\x02\x02\x02\x04\v\x11";
+		"\x03\x03\x03\x03\x03\x03\x04\x03\x04\x03\x04\x03\x04\x03\x04\x02\x02\x02" +
+		"\x05\x02\x02\x04\x02\x06\x02\x02\x02\x02\x1B\x02\v\x03\x02\x02\x02\x04" +
+		"\x14\x03\x02\x02\x02\x06\x18\x03\x02\x02\x02\b\n\x05\x04\x03\x02\t\b\x03" +
+		"\x02\x02\x02\n\r\x03\x02\x02\x02\v\t\x03\x02\x02\x02\v\f\x03\x02\x02\x02" +
+		"\f\x11\x03\x02\x02\x02\r\v\x03\x02\x02\x02\x0E\x10\x05\x06\x04\x02\x0F" +
+		"\x0E\x03\x02\x02\x02\x10\x13\x03\x02\x02\x02\x11\x0F\x03\x02\x02\x02\x11" +
+		"\x12\x03\x02\x02\x02\x12\x03\x03\x02\x02\x02\x13\x11\x03\x02\x02\x02\x14" +
+		"\x15\x07\x03\x02\x02\x15\x16\x07\x04\x02\x02\x16\x17\x07\x06\x02\x02\x17" +
+		"\x05\x03\x02\x02\x02\x18\x19\x07\x05\x02\x02\x19\x1A\x07\x04\x02\x02\x1A" +
+		"\x1B\x07\x06\x02\x02\x1B\x07\x03\x02\x02\x02\x04\v\x11";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!TodoParser.__ATN) {
@@ -236,13 +234,13 @@ export class TodoExpressionsContext extends ParserRuleContext {
 	// @Override
 	public get ruleIndex(): number { return TodoParser.RULE_todoExpressions; }
 	// @Override
-	public enterRule(listener: TodoParserListener): void {
+	public enterRule(listener: TodoListener): void {
 		if (listener.enterTodoExpressions) {
 			listener.enterTodoExpressions(this);
 		}
 	}
 	// @Override
-	public exitRule(listener: TodoParserListener): void {
+	public exitRule(listener: TodoListener): void {
 		if (listener.exitTodoExpressions) {
 			listener.exitTodoExpressions(this);
 		}
@@ -254,20 +252,19 @@ export class AddExpressionContext extends ParserRuleContext {
 	public ADD(): TerminalNode { return this.getToken(TodoParser.ADD, 0); }
 	public TODO(): TerminalNode { return this.getToken(TodoParser.TODO, 0); }
 	public STRING(): TerminalNode { return this.getToken(TodoParser.STRING, 0); }
-	public EOL(): TerminalNode { return this.getToken(TodoParser.EOL, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
 	// @Override
 	public get ruleIndex(): number { return TodoParser.RULE_addExpression; }
 	// @Override
-	public enterRule(listener: TodoParserListener): void {
+	public enterRule(listener: TodoListener): void {
 		if (listener.enterAddExpression) {
 			listener.enterAddExpression(this);
 		}
 	}
 	// @Override
-	public exitRule(listener: TodoParserListener): void {
+	public exitRule(listener: TodoListener): void {
 		if (listener.exitAddExpression) {
 			listener.exitAddExpression(this);
 		}
@@ -279,20 +276,19 @@ export class CompleteExpressionContext extends ParserRuleContext {
 	public COMPLETE(): TerminalNode { return this.getToken(TodoParser.COMPLETE, 0); }
 	public TODO(): TerminalNode { return this.getToken(TodoParser.TODO, 0); }
 	public STRING(): TerminalNode { return this.getToken(TodoParser.STRING, 0); }
-	public EOL(): TerminalNode { return this.getToken(TodoParser.EOL, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
 	// @Override
 	public get ruleIndex(): number { return TodoParser.RULE_completeExpression; }
 	// @Override
-	public enterRule(listener: TodoParserListener): void {
+	public enterRule(listener: TodoListener): void {
 		if (listener.enterCompleteExpression) {
 			listener.enterCompleteExpression(this);
 		}
 	}
 	// @Override
-	public exitRule(listener: TodoParserListener): void {
+	public exitRule(listener: TodoListener): void {
 		if (listener.exitCompleteExpression) {
 			listener.exitCompleteExpression(this);
 		}
