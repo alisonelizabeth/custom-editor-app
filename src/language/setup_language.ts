@@ -5,9 +5,10 @@ import { TodoWorker } from './todo_worker';
 import { WorkerProxyService} from './worker_proxy';
 import { TodoCompletionAdapter} from './completion_adapter';
 import { TodoDiagnosticsAdapter } from './diagnostics_adapter';
-import { monarchLanguage, languageConfiguration } from './lexer_rules';
+import { monarchLanguage } from './monarch_language_configuration';
+import { languageConfiguration } from './language_configuration';
+import { WorkerAccessor } from './types';
 
-export type WorkerAccessor = (...uris: monaco.Uri[]) => Promise<TodoWorker>;
 export const setupLanguage = () => {
   // @ts-ignore
   window.MonacoEnvironment = {
@@ -31,7 +32,7 @@ export const setupLanguage = () => {
     };
 
     monaco.languages.setMonarchTokensProvider(LANGUAGE_ID, monarchLanguage);
-    // TODO fix config
+
     monaco.languages.setLanguageConfiguration(LANGUAGE_ID, languageConfiguration);
 
     monaco.languages.registerCompletionItemProvider(LANGUAGE_ID, new TodoCompletionAdapter(worker));

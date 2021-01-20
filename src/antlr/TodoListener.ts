@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 // Generated from ./src/antlr/Todo.g4 by ANTLR 4.9.0-SNAPSHOT
 
 
@@ -7,6 +5,7 @@ import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
 import { TodoExpressionsContext } from "./TodoParser";
 import { AddExpressionContext } from "./TodoParser";
+import { DeleteExpressionContext } from "./TodoParser";
 import { CompleteExpressionContext } from "./TodoParser";
 
 
@@ -36,6 +35,17 @@ export interface TodoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitAddExpression?: (ctx: AddExpressionContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `TodoParser.deleteExpression`.
+	 * @param ctx the parse tree
+	 */
+	enterDeleteExpression?: (ctx: DeleteExpressionContext) => void;
+	/**
+	 * Exit a parse tree produced by `TodoParser.deleteExpression`.
+	 * @param ctx the parse tree
+	 */
+	exitDeleteExpression?: (ctx: DeleteExpressionContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `TodoParser.completeExpression`.

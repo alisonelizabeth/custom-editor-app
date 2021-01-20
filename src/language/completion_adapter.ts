@@ -1,7 +1,7 @@
 import * as monaco from "monaco-editor";
 import { TodoWorker } from './todo_worker';
 
-const getCompletionKind = (kind: 'type' | 'keyword'): monaco.languages.CompletionItemKind => {
+const getCompletionKind = (kind: 'type' | 'keyword' | 'string'): monaco.languages.CompletionItemKind => {
   const monacoItemKind = monaco.languages.CompletionItemKind;
 
   switch (kind) {
@@ -9,6 +9,8 @@ const getCompletionKind = (kind: 'type' | 'keyword'): monaco.languages.Completio
       return monacoItemKind.Interface;
     case 'keyword':
       return monacoItemKind.Keyword;
+    case 'string':
+      return monacoItemKind.Text;
     default:
       return monacoItemKind.Text;
   }
@@ -22,7 +24,7 @@ export class TodoCompletionAdapter implements monaco.languages.CompletionItemPro
   ) { }
 
   public get triggerCharacters(): string[] {
-    return ['.', `'`];
+    return ['.', `"`];
   }
 
   async provideCompletionItems(
@@ -42,7 +44,8 @@ export class TodoCompletionAdapter implements monaco.languages.CompletionItemPro
     const worker = await this.worker(model.uri);
 
     const suggestions = await worker.provideAutocompleteSuggestions(
-      words
+      words,
+      model.uri.toString()
     );
 
     const wordInfo = model.getWordUntilPosition(position);

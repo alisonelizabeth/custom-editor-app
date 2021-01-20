@@ -24,9 +24,12 @@ export class TodoWorker {
     }
   }
 
-  public provideAutocompleteSuggestions(words: string[]) {
+  public provideAutocompleteSuggestions(words: string[], modelUri: string) {
+    const code = this.getTextDocument(modelUri);
+
     const autocompleteSuggestions = getAutocompleteSuggestions(
       words,
+      code,
     );
     return autocompleteSuggestions;
   }

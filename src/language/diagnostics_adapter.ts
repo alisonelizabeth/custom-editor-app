@@ -1,6 +1,6 @@
 import * as monaco from "monaco-editor";
 import { LANGUAGE_ID } from './constants';
-import { WorkerAccessor } from './language';
+import { WorkerAccessor } from './types';
 import { TodoError } from './error_listener';
 
 const toDiagnostics = (error: TodoError): monaco.editor.IMarkerData => {

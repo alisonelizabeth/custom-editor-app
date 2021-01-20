@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Editor } from './components';
-import { setupLanguage } from './language/language';
+import { setupLanguage } from './language';
 
 setupLanguage();
 

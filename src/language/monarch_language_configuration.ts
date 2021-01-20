@@ -3,7 +3,7 @@ import * as monaco from "monaco-editor";
 export const monarchLanguage = <monaco.languages.IMonarchLanguage>{
   defaultToken: 'invalid',
   keywords: [
-    'COMPLETE', 'ADD',
+    'COMPLETE', 'ADD', 'DELETE',
   ],
   typeKeywords: ['TODO'],
   escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
@@ -31,9 +31,3 @@ export const monarchLanguage = <monaco.languages.IMonarchLanguage>{
     ]
   },
 }
-
-export const languageConfiguration: monaco.languages.LanguageConfiguration = {
-  autoClosingPairs: [
-    { open: '"', close: '"' },
-  ],
-};
