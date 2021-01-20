@@ -7,10 +7,8 @@ export const monarchLanguage = <monaco.languages.IMonarchLanguage>{
   ],
   typeKeywords: ['TODO'],
   escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
-  // The main tokenizer for our languages
   tokenizer: {
     root: [
-      // identifiers and keywords
       [/[a-zA-Z_$][\w$]*/, {
         cases: {
           '@keywords': { token: 'keyword' },
@@ -18,10 +16,8 @@ export const monarchLanguage = <monaco.languages.IMonarchLanguage>{
           '@default': 'identifier'
         }
       }],
-      // whitespace
       { include: '@whitespace' },
-      // strings for todos
-      [/"([^"\\]|\\.)*$/, 'string.invalid'],  // non-teminated string
+      [/"([^"\\]|\\.)*$/, 'string.invalid'],
       [/"/, 'string', '@string'],
     ],
     whitespace: [
@@ -37,15 +33,7 @@ export const monarchLanguage = <monaco.languages.IMonarchLanguage>{
 }
 
 export const languageConfiguration: monaco.languages.LanguageConfiguration = {
-  brackets: [
-    ['{', '}'],
-    ['[', ']'],
-    ['(', ')'],
-  ],
   autoClosingPairs: [
-    { open: '{', close: '}' },
-    { open: '[', close: ']' },
-    { open: '(', close: ')' },
     { open: '"', close: '"' },
   ],
 };

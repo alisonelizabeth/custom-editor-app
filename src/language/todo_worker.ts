@@ -1,5 +1,5 @@
 import * as monaco from "monaco-editor";
-import { getSyntaxErrors } from './parser';
+import { getSyntaxErrors, getSemanticErrors } from './language_utils';
 
 export class TodoWorker {
   private _ctx: monaco.worker.IWorkerContext;
@@ -18,9 +18,9 @@ export class TodoWorker {
     const code = this.getTextDocument(modelUri);
 
     if (code) {
-      // const semanticErrors = getSemanticErrors(code);
-      // console.log(semanticErrors);
-      return getSyntaxErrors(code);
+      const semanticErrors = getSemanticErrors(code);
+      const syntaxErrors = getSyntaxErrors(code);
+      return [...semanticErrors, ...syntaxErrors];
     }
   }
 
