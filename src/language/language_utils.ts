@@ -2,6 +2,7 @@ import { CommonTokenStream, CharStreams, Token } from 'antlr4ts';
 import { TodoParser, TodoExpressionsContext, AddExpressionContext, CompleteExpressionContext } from '../antlr/TodoParser';
 import { TodoLexer } from '../antlr/TodoLexer';
 import { TodoError, TodoErrorListener } from './error_listener';
+import { monarchLanguage } from './lexer_rules';
 
 const parse = (
   code: string
@@ -76,5 +77,39 @@ export const getSemanticErrors = (code: string): TodoError[] => {
     }
   })
   return errors;
+}
+
+export const getAutocompleteSuggestions = (words: string[]) => {
+  const currentKeyword = words[0];
+  // @ts-ignore
+  const availableKeywords = monarchLanguage.keywords;
+  const hasKeyword = Boolean(availableKeywords.find((availableKeyword: string) => currentKeyword === availableKeyword));
+
+  if (words.length === 1) {
+    return availableKeywords.map((keywordName: string ) => {
+      return {
+        label: keywordName,
+        kind: 'keyword',
+        documentation: `Keyword: ${keywordName}`,
+        insertText: keywordName,
+      };
+    });
+  }
+
+  // Only provide type autocomplete if the expression first contains a keyword
+  if (words.length === 2 && hasKeyword) {
+    // @ts-ignore
+    const typeKeyword = monarchLanguage.typeKeywords[0]; // at the moment there is only one type keyword
+    return [{
+      label: typeKeyword,
+      kind: 'type',
+      documentation: `Type: ${typeKeyword}`,
+      insertText: typeKeyword,
+    }]
+  }
+
+  // TODO add autocompletion of "COMPLETE" todos using ast
+
+  return [];
 }
 

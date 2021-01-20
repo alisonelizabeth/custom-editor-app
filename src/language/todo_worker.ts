@@ -1,5 +1,5 @@
 import * as monaco from "monaco-editor";
-import { getSyntaxErrors, getSemanticErrors } from './language_utils';
+import { getSyntaxErrors, getSemanticErrors, getAutocompleteSuggestions } from './language_utils';
 
 export class TodoWorker {
   private _ctx: monaco.worker.IWorkerContext;
@@ -24,16 +24,10 @@ export class TodoWorker {
     }
   }
 
-  public provideAutocompleteSuggestions(currentLineChars: string) {
-    // Array of the active line words
-    const words = currentLineChars.replace('\t', '').split(' ');
-
-    // const autocompleteSuggestions: PainlessCompletionResult = getAutocompleteSuggestions(
-    //   context,
-    //   words,
-    //   fields
-    // );
-
-    return ['foo'];
+  public provideAutocompleteSuggestions(words: string[]) {
+    const autocompleteSuggestions = getAutocompleteSuggestions(
+      words,
+    );
+    return autocompleteSuggestions;
   }
 }
