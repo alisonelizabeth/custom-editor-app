@@ -14,7 +14,7 @@ export class TodoWorker {
     return model?.getValue();
   }
 
-  public async getSyntaxErrors(modelUri: string) {
+  public async getErrors(modelUri: string) {
     const code = this.getTextDocument(modelUri);
 
     if (code) {
@@ -24,7 +24,7 @@ export class TodoWorker {
     }
   }
 
-  public provideAutocompleteSuggestions(words: string[], modelUri: string) {
+  public getAutocompleteSuggestions(words: string[], modelUri: string) {
     const code = this.getTextDocument(modelUri);
 
     const autocompleteSuggestions = getAutocompleteSuggestions(

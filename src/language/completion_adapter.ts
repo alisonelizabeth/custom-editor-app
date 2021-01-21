@@ -24,7 +24,7 @@ export class TodoCompletionAdapter implements monaco.languages.CompletionItemPro
   ) { }
 
   public get triggerCharacters(): string[] {
-    return ['.', `"`];
+    return [`"`];
   }
 
   async provideCompletionItems(
@@ -43,7 +43,7 @@ export class TodoCompletionAdapter implements monaco.languages.CompletionItemPro
 
     const worker = await this.worker(model.uri);
 
-    const suggestions = await worker.provideAutocompleteSuggestions(
+    const suggestions = await worker.getAutocompleteSuggestions(
       words,
       model.uri.toString()
     );

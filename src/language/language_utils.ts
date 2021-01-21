@@ -60,43 +60,61 @@ export const getSemanticErrors = (code: string): TodoError[] => {
 
   ast.children?.forEach(node => {
     if (node instanceof AddExpressionContext) {
-      const addTodoString = node.STRING().text;
-      const isExistingTodo = Boolean(existingTodos.find(existingTodo => existingTodo === addTodoString));
+      let addTodoString: string;
 
-      if (isExistingTodo) {
-        if (node.stop) {
-          errors.push(getSemanticErrorMsg(node.stop, `ADD TODO ${addTodoString} is already defined.`))
+      try {
+        addTodoString = node?.STRING()?.text;
+        const isExistingTodo = Boolean(existingTodos.find(existingTodo => existingTodo === addTodoString));
+
+        if (isExistingTodo) {
+          if (node.stop) {
+            errors.push(getSemanticErrorMsg(node.stop, `ADD TODO ${addTodoString} is already defined.`))
+          }
+        } else {
+          existingTodos.push(addTodoString)
         }
-      } else {
-        existingTodos.push(addTodoString)
+      } catch (e) {
+        // Ignore error, getSyntaxErrors() should pick up correct error in this case
       }
     } else if (node instanceof DeleteExpressionContext) {
-      const deleteTodoString = node.STRING().text;
-      const isExistingDeleteTodo = Boolean(deletedTodos.find(deletedTodo => deletedTodo === deleteTodoString));
-      const isTodoDefined = Boolean(existingTodos.find(existingTodo => existingTodo === deleteTodoString));
+      let deleteTodoString: string;
 
-      if (isExistingDeleteTodo === false) {
-        deletedTodos.push(deleteTodoString);
-      }
+      try {
+        deleteTodoString = node.STRING().text;
+        const isExistingDeleteTodo = Boolean(deletedTodos.find(deletedTodo => deletedTodo === deleteTodoString));
+        const isTodoDefined = Boolean(existingTodos.find(existingTodo => existingTodo === deleteTodoString));
 
-      if (isTodoDefined === false) {
-        if (node.stop) {
-          errors.push(getSemanticErrorMsg(node.stop, `TODO ${deleteTodoString} has not been defined.`));
+        if (isExistingDeleteTodo === false) {
+          deletedTodos.push(deleteTodoString);
         }
+
+        if (isTodoDefined === false) {
+          if (node.stop) {
+            errors.push(getSemanticErrorMsg(node.stop, `TODO ${deleteTodoString} has not been defined.`));
+          }
+        }
+      } catch (e) {
+        // Ignore error, getSyntaxErrors() should pick up correct error in this case
       }
     } else if (node instanceof CompleteExpressionContext) {
-      const completeTodoString = node.STRING().text;
-      const isTodoDefined = Boolean(existingTodos.find(existingTodo => existingTodo === completeTodoString));
-      const isTodoDeleted = Boolean(deletedTodos.find(deletedTodo => deletedTodo === completeTodoString));
+      let completeTodoString: string;
 
-      if (isTodoDefined === false) {
-        if (node.stop) {
-          errors.push(getSemanticErrorMsg(node.stop, `TODO ${completeTodoString} has not been defined.`));
+      try {
+        completeTodoString = node.STRING()?.text;
+        const isTodoDefined = Boolean(existingTodos.find(existingTodo => existingTodo === completeTodoString));
+        const isTodoDeleted = Boolean(deletedTodos.find(deletedTodo => deletedTodo === completeTodoString));
+
+        if (isTodoDefined === false) {
+          if (node.stop) {
+            errors.push(getSemanticErrorMsg(node.stop, `TODO ${completeTodoString} has not been defined.`));
+          }
+        } else if (isTodoDeleted) {
+          if (node.stop) {
+            errors.push(getSemanticErrorMsg(node.stop, `TODO ${completeTodoString} has been deleted.`));
+          }
         }
-      } else if (isTodoDeleted) {
-        if (node.stop) {
-          errors.push(getSemanticErrorMsg(node.stop, `TODO ${completeTodoString} has been deleted.`));
-        }
+      } catch(e) {
+        // Ignore error, getSyntaxErrors() should pick up correct error in this case
       }
     }
   })
@@ -132,16 +150,14 @@ export const getAutocompleteSuggestions = (words: string[], code: string) => {
     }]
   }
 
-  console.log(words);
-  console.log(currentKeyword);
-  if (words.length === 3 && currentKeyword === 'COMPLETE') {
+  if (words.length === 3 && (currentKeyword === 'COMPLETE' || currentKeyword === 'DELETE')) {
     const { ast } = parse(code);
 
     const existingTodos: string[] = [];
 
     ast.children?.forEach(node => {
       if (node instanceof AddExpressionContext) {
-        const addTodoString = node.STRING().text;
+        const addTodoString = node.STRING()?.text;
         const isExistingTodo = Boolean(existingTodos.find(existingTodo => existingTodo === addTodoString));
 
         if (isExistingTodo === false) {

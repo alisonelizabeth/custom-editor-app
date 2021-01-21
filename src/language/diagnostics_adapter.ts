@@ -31,7 +31,7 @@ export class TodoDiagnosticsAdapter {
 
   private async validate(resource: monaco.Uri): Promise<void> {
     const worker = await this.worker(resource);
-    const errorMarkers = await worker.getSyntaxErrors(resource.toString());
+    const errorMarkers = await worker.getErrors(resource.toString());
 
     if (errorMarkers) {
       const model = monaco.editor.getModel(resource);
